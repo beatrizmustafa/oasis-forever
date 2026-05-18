@@ -1,112 +1,228 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oasis Forever - Dashboard</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Oasis Forever | Dashboard</title>
   <link rel="stylesheet" href="./css/style2.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
-  <div class="dashboard-container">
-
-    <aside class="sidebar">
-      <div class="logo-area">
-        <img src="./assets/img/oasis_logo.png" alt="Oasis" class="logo-img">
-        <span class="forever-text">FOREVER</span>
+  <div class="dashboard-wrapper">
+    <header class="header-banner">
+      <div class="nav-bar">
+        <div class="logo">
+          <img src="./assets/img/oasis_logo.png" alt="Logo Oasis" class="logo-img">
+          <span class="forever-text">FOREVER</span>
+        </div>
+        <nav>
+          <a href="./dashboard.html" class="active">Dashboard</a>
+          <a href="./quiz.html">Questionário</a>
+        </nav>
+        <a href="./index.html">
+          <button class="btn-sair">SAIR</button>
+        </a>
       </div>
 
-      <div class="user-info">
+      <div class="welcome-text">
         Olá, <strong>*Nome do usuário*</strong>
       </div>
 
-      <nav class="menu-nav">
-        <a href="#" class="btn-nav">Resultados</a>
-        <a href="#" class="btn-nav">Gráficos</a>
-      </nav>
-
-      <div class="footer-sidebar">
-        <a href="index.html" class="btn-sair">SAIR</a>
+      <div class="top-cards-container">
+        <div class="card-blue">
+          <span class="label">RESPOSTAS</span>
+          <div class="value">-- <small>▲</small></div>
+        </div>
+        <div class="card-blue">
+          <span class="label">PREDOMINANTE</span>
+          <div class="value-text">--</div>
+        </div>
+        <div class="gender-stats">
+          <div class="gender-row">
+            <span>Mulheres</span>
+            <span class="perc">--%</span>
+          </div>
+          <div class="gender-row">
+            <span>Homens</span>
+            <span class="perc">--%</span>
+          </div>
+        </div>
       </div>
-    </aside>
+    </header>
 
-    <main class="main-content">
+    <main class="graficos">
+      <div class="grafico-card wide">
+        <h3>Resultados por dia da semana</h3>
 
-      <div style="padding: 20px; color: white; text-align: center;">
-        <h1>Análise de Respostas Quiz </h1>
-      </div>
-
-      <div class="container-graficos">
-        <div class="caixa-grafico">
+        <div class="placeholder-area">
           <canvas id="graficolinha"></canvas>
         </div>
-
-        <div class="caixa-grafico">
+      </div>
+      <div class="grafico-card tall">
+        <h3>Respostas Período do Dia</h3>
+        <div class="placeholder-area">
           <canvas id="graficobarra"></canvas>
+
         </div>
       </div>
+      <div class="grafico-card card-pizza">
+        <h3>Resultados Questionário</h3>
+        <div class="placeholder-area">
+          <canvas id="graficopizza"></canvas>
+        </div>
 
+      </div>
+      <div class="grafico-card card-pizza">
+        <h3>Resultados por Idade</h3>
+        <div class="placeholder-area">
+
+          <canvas id="graficopizza2"></canvas>
+        </div>
+
+
+      </div>
     </main>
-
   </div>
 
   <script>
-    const labelsDias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
-    const labelsRespostas = ['A', 'B', 'C', 'D', 'E'];
+    const labelsDias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
+    const labelsMeses = ['Manhã', 'Tarde', 'Noite'];
 
-    const dadosLinha = {
+  const opcoesPizza = {
+        responsive: true,
+        maintainAspectRatio: false
+    };
+
+    const opcoesLinhaBarra = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                grid: {
+                    display: false // Remove as linhas verticais
+                }
+            },
+            y: {
+                grid: {
+                    display: false // Remove as linhas horizontais
+                }
+            }
+        }
+    };
+
+    const grafico1 = {
       labels: labelsDias,
       datasets: [
         {
           label: 'Liam',
-          data: [22, 24, 27, 23, 20, 28],
-          borderColor: 'rgb(255, 255, 255)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          tension: 0.3
+          data: [30, 29, 28, 25, 22, 23],
+          borderColor: 'rgb(124, 43, 153)',
+          tension: 0.1
         },
         {
           label: 'Noel',
-          data: [10, 21, 30, 15, 18, 20],
-          borderColor: 'rgb(34, 37, 67)',
-          backgroundColor: 'rgba(34, 37, 67, 0.5)',
-          tension: 0.3
+          data: [80, 82, 80, 85, 80, 83],
+          borderColor: 'rgb(123, 167, 227)',
+          tension: 0.1
         }
       ]
     };
 
-    const dadosBarra = {
-      labels: labelsRespostas,
+    const grafico2 = {
+      labels: labelsMeses,
       datasets: [
         {
-          label: 'Homem',
+          label: 'Temperatura Média',
           data: [22, 24, 27, 23, 20, 28],
-          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          backgroundColor: 'rgba(124, 43, 153, 0.5)',
           borderWidth: 1
         },
+
         {
-          label: 'Mulher',
-          data: [10, 21, 30, 15, 18, 20],
-          backgroundColor: 'rgba(34, 37, 67, 0.7)',
+          label: 'Umidade Média',
+          data: [90, 89, 93, 87, 88, 82],
+          backgroundColor: 'rgba(123, 167, 227, 0.5)',
           borderWidth: 1
         }
+
       ]
+
     };
 
-    new Chart(document.getElementById('graficolinha'), {
-      type: 'line',
-      data: dadosLinha,
-      options: { responsive: true, maintainAspectRatio: false }
-    });
 
-    new Chart(document.getElementById('graficobarra'), {
+    const grafico3 = {
+      labels: [
+        'Liam',
+        'Noel'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [70, 30],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const grafico4 = {
+      labels: [
+        '41 - 55',
+        '55 +',
+        '26 - 40',
+        '19 - 25',
+        '13', '18'
+      ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [300, 50, 100, 25, 170, 67],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const configLinha = {
+      type: 'line',
+      data: grafico1,
+      options: opcoesLinhaBarra
+
+    };
+
+    const configBarra = {
       type: 'bar',
-      data: dadosBarra,
-      options: { responsive: true, maintainAspectRatio: false }
-    });
+      data: grafico2,
+      options: opcoesLinhaBarra
+    };
+
+    const configPizza = {
+      type: 'doughnut',
+      data: grafico3,
+      options: opcoesPizza
+
+    };
+
+    const configPizza2 = {
+      type: 'doughnut',
+      data: grafico4,
+      options: opcoesPizza
+
+    };
+
+    new Chart(document.getElementById('graficolinha'), configLinha);
+    new Chart(document.getElementById('graficobarra'), configBarra);
+    new Chart(document.getElementById('graficopizza'), configPizza);
+    new Chart(document.getElementById('graficopizza2'), configPizza2);
+
   </script>
 </body>
 
