@@ -29,13 +29,13 @@
       </div>
 
       <div class="welcome-text">
-        Olá, <strong>*Nome do usuário*</strong>
+        Olá, <span id="b_usuario">*Nome do usuário*</span>!
       </div>
 
       <div class="top-cards-container">
         <div class="card-blue">
           <span class="label">RESPOSTAS</span>
-          <div class="value">-- <small>▲</small></div>
+          <div class="value" id="total_respostas">--</div>
         </div>
         <div class="card-blue">
           <span class="label">PREDOMINANTE</span>
@@ -89,6 +89,25 @@
   </div>
 
   <script>
+      b_usuario.innerHTML = sessionStorage.NOME_USUARIO ;
+
+      function buscarTotalRespostas() {
+        fetch("/quiz/contarRespostas", {
+            method: "GET",
+        })
+        .then(function (resposta) {
+            resposta.json().then((json) => {
+                console.log("Dados recebidos: ", json);
+                
+                // Pega o elemento pelo ID e joga o número lá dentro
+                document.getElementById("total_respostas").innerHTML = json.totalRespostas;
+            });
+        })
+        .catch(function (erro) {
+            console.log("Erro ao buscar total de respostas: ", erro);
+        });
+    }
+
     const labelsDias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
     const labelsMeses = ['Manhã', 'Tarde', 'Noite'];
 
@@ -136,14 +155,14 @@
       labels: labelsMeses,
       datasets: [
         {
-          label: 'Temperatura Média',
+          label: 'Liam',
           data: [22, 24, 27, 23, 20, 28],
           backgroundColor: 'rgba(124, 43, 153, 0.5)',
           borderWidth: 1
         },
 
         {
-          label: 'Umidade Média',
+          label: 'Noel',
           data: [90, 89, 93, 87, 88, 82],
           backgroundColor: 'rgba(123, 167, 227, 0.5)',
           borderWidth: 1

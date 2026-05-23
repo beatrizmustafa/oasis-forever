@@ -43,9 +43,7 @@
             <div class="card_erro" id="cardErro">
                 <p id="mensagem_erro"> </p>
             </div>
-            <a href="./quiz.html">
-            <button class="btn-enviar-login" onclick="entrar()">ENTRAR</button>
-            </a>
+            <button type="button" class="btn-enviar-login" onclick="entrar()">ENTRAR</button>
             <p class="login-link">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
         </div>
     </div>
@@ -95,7 +93,7 @@
                         cardErro.style.display = "block";
 
                         setTimeout(function () {
-                            window.location = "dashboard.html";
+                            window.location = "quiz.html";
                         }, 1000);
 
 
@@ -108,6 +106,13 @@
 
                     resposta.text().then(texto => {
                         console.error(texto);
+
+                        cardErro.style.color = "red"; // Garante que a letra fique vermelha
+                        cardErro.style.display = "block"; // Mostra a div de erro
+                        mensagem_erro.innerHTML = "Username ou senha incorretos!"; // Insere a mensagem
+                        
+                        // Faz a mensagem sumir depois de 5 segundos
+                        setTimeout(sumirMensagem, 5000);
                     });
                 }
 

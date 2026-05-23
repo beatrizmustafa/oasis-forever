@@ -16,6 +16,9 @@ body {
 
 .dashboard-wrapper{
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .full-banner {
     min-height: 100vh;
@@ -222,23 +225,240 @@ body {
     max-height: 250px;
 }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
 .card-quiz {
-    background: white;
-    width: 180%;
-    max-width: 650px;
-    padding: 150px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-
-
-
+  background: rgb(176, 184, 252);
+  width: 100%;
+  max-width: 800px;
+  min-height: 450px;
+  height: auto;
+  padding-bottom: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-top: 50px;
+  position: relative;
+  overflow: hidden; 
 }
 
 .card-quiz h2 {
-    font-family: 'Radio Canada Big';
-    font-weight: 800;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+  font-family: 'Serif'; 
+  color: #2b3a5c;
+  font-weight: 500;
+  font-size: 4rem;
+  margin-bottom: 5px;
 }
 
+.card-quiz p {
+  color: #555;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+
+.quiz-interactive {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-comecar {
+  background-color: #0b3765;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10; 
+  transition: background-color 0.3s ease;
+}
+
+.btn-comecar:hover {
+  background-color: #072545;
+}
+
+.img-noel, .img-liam {
+  position: absolute;
+  bottom: 0;
+  height: 280px; 
+}
+
+.img-noel {
+  left: 40px;
+}
+
+.img-liam {
+  right: 40px;
+}
+
+
+.quiz-container {
+    margin-top: 30px;
+    padding: 0 50px;
+    text-align: left;
+    color: #333;
+}
+
+.pergunta-titulo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#span_texto_pergunta {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.lista-respostas {
+    list-style: none;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.lista-respostas li {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.2s;
+    border-radius: 8px; 
+}
+
+.lista-respostas li:hover {
+    background-color: rgba(0, 0, 0, 0.05); 
+}
+
+.lista-respostas li::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.lista-respostas li.selecionada::before {
+    background-color: #0b3765;
+    box-shadow: inset 0 0 0 3px white;
+}
+
+.navegacao-quiz {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding: 0 20px 30px 20px;
+}
+
+.btn-nav {
+    background-color: #173d68;
+    border: none;
+    width: 80px; 
+    height: 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.btn-nav:hover {
+    background-color: #0b3765;
+}
+
+.btn-nav img {
+    width: 25px;
+}
+
+.btn-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background-color: #555; 
+}
+
+.tela-quiz {
+    background: linear-gradient(90deg, #09335e 0%, #355383 60%, #e7e9ed 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.tela-quiz .header-banner {
+    background: transparent;
+    padding-bottom: 20px; 
+}
+
+.tela-quiz .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; 
+    padding: 20px; 
+}
+
+
+
+#tela_resultado h2 {
+    font-family: 'Serif'; 
+    color: #2b3a5c;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.resultado-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 40px;
+}
+
+#img_resultado {
+    height: 200px;
+    width: auto;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+#nome_resultado {
+    font-size: 2rem;
+    color: #0b3765;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+#desc_resultado {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    max-width: 550px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#tela_resultado .btn-comecar {
+    position: static; 
+    margin-top: 10px;
+}
