@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body onload="buscarTotalRespostas(); buscarPredominante()">
 
   <div class="dashboard-wrapper">
     <header class="header-banner">
@@ -35,12 +35,12 @@
       <div class="top-cards-container">
         <div class="card-blue">
           <span class="label">RESPOSTAS</span>
-          <div class="value" id="total_respostas">--</div>
+          <div class="value" id="total_respostas" >--</div>
         </div>
         <div class="card-blue">
           <span class="label">PREDOMINANTE</span>
-          <div class="value-text">--</div>
-        </div>
+<div class="value-text" id="resultado_predominante">--</div>        
+</div>
         <div class="gender-stats">
           <div class="gender-row">
             <span>Mulheres</span>
@@ -92,7 +92,7 @@
       b_usuario.innerHTML = sessionStorage.NOME_USUARIO ;
 
       function buscarTotalRespostas() {
-        fetch("/quiz/contarRespostas", {
+        fetch("/dashboard/contarRespostas", {
             method: "GET",
         })
         .then(function (resposta) {
@@ -105,6 +105,23 @@
         })
         .catch(function (erro) {
             console.log("Erro ao buscar total de respostas: ", erro);
+        });
+    }
+
+    function buscarPredominante() {
+        fetch("/dashboard/resultadoPredominante", {
+            method: "GET",
+        })
+        .then(function (resposta) {
+            resposta.json().then((json) => {
+                console.log("Predominante recebido: ", json);
+                
+                // Pega o elemento pelo ID e joga o nome (perfil_final) lá dentro
+                document.getElementById("resultado_predominante").innerHTML = json.perfil_final;
+            });
+        })
+        .catch(function (erro) {
+            console.log("Erro ao buscar o predominante: ", erro);
         });
     }
 
