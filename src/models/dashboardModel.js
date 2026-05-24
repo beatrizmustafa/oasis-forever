@@ -23,7 +23,18 @@ function resultadoPredominante() {
     return database.executar(instrucaoSql);
 }
 
+function buscarDadosQuestionario() {
+    var instrucaoSql = `
+        SELECT perfil_final, COUNT(perfil_final) as quantidade
+        FROM resultado_quiz
+        GROUP BY perfil_final;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     contarRespostas,
-    resultadoPredominante
+    resultadoPredominante,
+    buscarDadosQuestionario
 };

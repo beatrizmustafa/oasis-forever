@@ -13,4 +13,8 @@ router.get("/resultadoPredominante", function (req, res) {
     dashboardController.resultadoPredominante(req, res);
 });
 
+router.get("/dadosQuestionario", function (req, res) {
+    dashboardController.buscarDadosQuestionario(req, res);
+});
+
 module.exports = router;

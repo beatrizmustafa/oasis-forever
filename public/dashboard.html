@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="buscarTotalRespostas(); buscarPredominante()">
+<body onload="buscarTotalRespostas(); buscarPredominante(); buscarDadosQuestionario()">
 
   <div class="dashboard-wrapper">
     <header class="header-banner">
@@ -35,12 +35,12 @@
       <div class="top-cards-container">
         <div class="card-blue">
           <span class="label">RESPOSTAS</span>
-          <div class="value" id="total_respostas" >--</div>
+          <div class="value" id="total_respostas">--</div>
         </div>
         <div class="card-blue">
           <span class="label">PREDOMINANTE</span>
-<div class="value-text" id="resultado_predominante">--</div>        
-</div>
+          <div class="value-text" id="resultado_predominante">--</div>
+        </div>
         <div class="gender-stats">
           <div class="gender-row">
             <span>Mulheres</span>
@@ -89,65 +89,95 @@
   </div>
 
   <script>
-      b_usuario.innerHTML = sessionStorage.NOME_USUARIO ;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-      function buscarTotalRespostas() {
-        fetch("/dashboard/contarRespostas", {
-            method: "GET",
-        })
+    function buscarTotalRespostas() {
+      fetch("/dashboard/contarRespostas", {
+        method: "GET",
+      })
         .then(function (resposta) {
-            resposta.json().then((json) => {
-                console.log("Dados recebidos: ", json);
-                
-                // Pega o elemento pelo ID e joga o número lá dentro
-                document.getElementById("total_respostas").innerHTML = json.totalRespostas;
-            });
+          resposta.json().then((json) => {
+            console.log("Dados recebidos: ", json);
+
+            // Pega o elemento pelo ID e joga o número lá dentro
+            document.getElementById("total_respostas").innerHTML = json.totalRespostas;
+          });
         })
         .catch(function (erro) {
-            console.log("Erro ao buscar total de respostas: ", erro);
+          console.log("Erro ao buscar total de respostas: ", erro);
         });
     }
 
     function buscarPredominante() {
-        fetch("/dashboard/resultadoPredominante", {
-            method: "GET",
-        })
+      fetch("/dashboard/resultadoPredominante", {
+        method: "GET",
+      })
         .then(function (resposta) {
-            resposta.json().then((json) => {
-                console.log("Predominante recebido: ", json);
-                
-                // Pega o elemento pelo ID e joga o nome (perfil_final) lá dentro
-                document.getElementById("resultado_predominante").innerHTML = json.perfil_final;
-            });
+          resposta.json().then((json) => {
+            console.log("Predominante recebido: ", json);
+
+            // Pega o elemento pelo ID e joga o nome (perfil_final) lá dentro
+            document.getElementById("resultado_predominante").innerHTML = json.perfil_final;
+          });
         })
         .catch(function (erro) {
-            console.log("Erro ao buscar o predominante: ", erro);
+          console.log("Erro ao buscar o predominante: ", erro);
         });
     }
+
+    function buscarDadosQuestionario() {
+      fetch("/dashboard/dadosQuestionario", {
+        method: "GET",
+      })
+        .then(function (resposta) {
+          resposta.json().then((json) => {
+            console.log("Dados recebidos para o gráfico: ", json);
+
+            let pontosLiam = 0;
+            let pontosNoel = 0;
+
+            for (let i = 0; i < json.length; i++) {
+              if (json[i].perfil_final === 'Liam') {
+                pontosLiam = json[i].quantidade;
+              } else if (json[i].perfil_final === 'Noel') {
+                pontosNoel = json[i].quantidade;
+              }
+            }
+
+            // Injeta os dados novos dentro do gráfico
+            graficopizza1.data.datasets[0].data = [pontosLiam, pontosNoel];
+            graficopizza1.update();
+          });
+        })
+        .catch(function (erro) {
+          console.log("Erro ao buscar dados do gráfico: ", erro);
+        });
+    }
+
 
     const labelsDias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
     const labelsMeses = ['Manhã', 'Tarde', 'Noite'];
 
-  const opcoesPizza = {
-        responsive: true,
-        maintainAspectRatio: false
+    const opcoesPizza = {
+      responsive: true,
+      maintainAspectRatio: false
     };
 
     const opcoesLinhaBarra = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                grid: {
-                    display: false // Remove as linhas verticais
-                }
-            },
-            y: {
-                grid: {
-                    display: false // Remove as linhas horizontais
-                }
-            }
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: {
+            display: false // Remove as linhas verticais
+          }
+        },
+        y: {
+          grid: {
+            display: false // Remove as linhas horizontais
+          }
         }
+      }
     };
 
     const grafico1 = {
@@ -256,7 +286,7 @@
 
     new Chart(document.getElementById('graficolinha'), configLinha);
     new Chart(document.getElementById('graficobarra'), configBarra);
-    new Chart(document.getElementById('graficopizza'), configPizza);
+    let graficopizza1 = new Chart(document.getElementById('graficopizza'), configPizza);
     new Chart(document.getElementById('graficopizza2'), configPizza2);
 
   </script>
