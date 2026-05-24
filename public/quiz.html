@@ -2,274 +2,279 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oasis Forever | Quiz</title>
-  <link rel="stylesheet" href="./css/style2.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Forever | Quiz</title>
+    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="icon" href="./assets/icon/oasis_logo.ico">
+
 </head>
 
 <body>
 
- <div class="dashboard-wrapper tela-quiz">
-    <header class="header-banner">
-      <div class="nav-bar">
-        <div class="logo">
-          <img src="./assets/img/oasis_logo.png" alt="Logo Oasis" class="logo-img">
-          <span class="forever-text">FOREVER</span>
-        </div>
+    <div class="dashboard-wrapper tela-quiz">
+        <header class="header-banner">
+            <div class="nav-bar">
+                <div class="logo">
+                    <img src="./assets/img/oasis_logo.png" alt="Logo Oasis" class="logo-img">
+                    <span class="forever-text">FOREVER</span>
+                </div>
 
-        <nav>
-          <a href="./dashboard.html">Dashboard</a> 
-          <a href="./quiz.html" class="active">Questionário</a>
-        </nav>
+                <nav>
+                    <a href="./dashboard.html">Dashboard</a>
+                    <a href="./quiz.html" class="active">Questionário</a>
+                </nav>
 
-        <a href="./index.html">
-          <button class="btn-sair">SAIR</button>
-        </a>
-      </div>
+                <a href="./index.html">
+                    <button class="btn-sair">SAIR</button>
+                </a>
+            </div>
 
-      <div class="welcome-text">
-        Olá, <span id="b_usuario">*Nome do usuário*</span>!
-      </div>
-    </header>
+            <div class="welcome-text">
+                Olá, <span id="b_usuario">*Nome do usuário*</span>!
+            </div>
+        </header>
 
-    <main class="main-content">
-      <div class="card-quiz" id="card_quiz">
-        
-        <div id="tela_inicial">
-          <h2>Quem você seria?</h2>
-          <p>Noel x Liam</p>
-          
-          <div class="quiz-interactive">
-            <img src="./assets/img/noel.png" alt="Noel Gallagher" class="img-noel">
-            
-            <button class="btn-comecar" onclick="iniciarQuiz()">Começar Teste</button>
-            
-            <img src="./assets/img/liam.png" alt="Liam Gallagher" class="img-liam">
-          </div>
-        </div>
+        <main class="main-content">
+            <div class="card-quiz" id="card_quiz">
 
-        <div id="tela_idade" style="display: none;">
-    <h2>Antes de começarmos...</h2>
-    <p>Qual a sua faixa etária?</p>
+                <div id="tela_inicial">
+                    <h2>Quem você seria?</h2>
+                    <p>Noel x Liam</p>
 
-    <div class="quiz-container">
-        <ul class="lista-respostas">
-            <li onclick="selecionarIdade(this, '13 - 18')">13 a 18 anos</li>
-            <li onclick="selecionarIdade(this, '19 - 25')">19 a 25 anos</li>
-            <li onclick="selecionarIdade(this, '26 - 40')">26 a 40 anos</li>
-            <li onclick="selecionarIdade(this, '41 - 55')">41 a 55 anos</li>
-            <li onclick="selecionarIdade(this, '55 +')">55 anos ou mais</li>
-        </ul>
+                    <div class="quiz-interactive">
+                        <img src="./assets/img/noel.png" alt="Noel Gallagher" class="img-noel">
 
-        <div class="navegacao-quiz">
-            <button class="btn-nav" onclick="irParaPerguntas()" style="width: 100%; height: 50px; font-weight: bold;">
-                AVANÇAR
-            </button>
-        </div>
+                        <button class="btn-comecar" onclick="iniciarQuiz()">Começar Teste</button>
+
+                        <img src="./assets/img/liam.png" alt="Liam Gallagher" class="img-liam">
+                    </div>
+                </div>
+
+                <div id="tela_idade" style="display: none;">
+                    <h2>Antes de começarmos...</h2>
+                    <p>Qual a sua faixa etária?</p>
+
+                    <div class="quiz-container">
+                        <ul class="lista-respostas">
+                            <li onclick="selecionarIdade(this, '13 - 18')">13 a 18 anos</li>
+                            <li onclick="selecionarIdade(this, '19 - 25')">19 a 25 anos</li>
+                            <li onclick="selecionarIdade(this, '26 - 40')">26 a 40 anos</li>
+                            <li onclick="selecionarIdade(this, '41 - 55')">41 a 55 anos</li>
+                            <li onclick="selecionarIdade(this, '55 +')">55 anos ou mais</li>
+                        </ul>
+
+                        <div class="navegacao-quiz">
+                            <button class="btn-nav" onclick="irParaPerguntas()"
+                                style="width: 100%; height: 50px; font-weight: bold;">
+                                AVANÇAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tela_perguntas" style="display: none;">
+                    <h2>Quem você seria?</h2>
+                    <p>Noel x Liam</p>
+
+                    <div class="quiz-container">
+                        <div class="pergunta-titulo">
+                            <span id="span_numero_pergunta">1.</span>
+                            <span id="span_texto_pergunta">Se você tivesse na situação tal você ficaria irritado com tal
+                                coisa?</span>
+                        </div>
+
+                        <ul class="lista-respostas" id="ul_respostas">
+                            <li onclick="selecionar(this)">Sim</li>
+                            <li onclick="selecionar(this)">Com certeza</li>
+                            <li onclick="selecionar(this)">Talvez</li>
+                            <li onclick="selecionar(this)">Não</li>
+                        </ul>
+
+                        <div class="navegacao-quiz">
+                            <button class="btn-nav" id="btn_voltar" onclick="voltarPergunta()">
+                                <img src="https://img.icons8.com/ios-glyphs/30/ffffff/long-arrow-left.png" alt="Voltar">
+                            </button>
+                            <button class="btn-nav" id="btn_proximo" onclick="proximaPergunta()">
+                                <img src="https://img.icons8.com/ios-glyphs/30/ffffff/long-arrow-right.png"
+                                    alt="Próximo">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tela_resultado" style="display: none;">
+                    <h2>Seu Resultado</h2>
+                    <div class="resultado-container">
+                        <img id="img_resultado" src="" alt="Foto do Integrante">
+                        <h3 id="nome_resultado"></h3>
+                        <p id="desc_resultado"></p>
+                        <button class="btn-comecar" onclick="window.location.reload()">Refazer Teste</button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-</div>
-
-        <div id="tela_perguntas" style="display: none;">
-          <h2>Quem você seria?</h2>
-          <p>Noel x Liam</p>
-
-          <div class="quiz-container">
-            <div class="pergunta-titulo">
-              <span id="span_numero_pergunta">1.</span>
-              <span id="span_texto_pergunta">Se você tivesse na situação tal você ficaria irritado com tal coisa?</span>
-            </div>
-
-            <ul class="lista-respostas" id="ul_respostas">
-              <li onclick="selecionar(this)">Sim</li>
-              <li onclick="selecionar(this)">Com certeza</li>
-              <li onclick="selecionar(this)">Talvez</li>
-              <li onclick="selecionar(this)">Não</li>
-            </ul>
-
-            <div class="navegacao-quiz">
-              <button class="btn-nav" id="btn_voltar" onclick="voltarPergunta()">
-                <img src="https://img.icons8.com/ios-glyphs/30/ffffff/long-arrow-left.png" alt="Voltar">
-              </button>
-              <button class="btn-nav" id="btn_proximo" onclick="proximaPergunta()">
-                <img src="https://img.icons8.com/ios-glyphs/30/ffffff/long-arrow-right.png" alt="Próximo">
-              </button>
-            </div>
-        </div>
-        </div>
-
-        <div id="tela_resultado" style="display: none;">
-          <h2>Seu Resultado</h2>
-          <div class="resultado-container">
-            <img id="img_resultado" src="" alt="Foto do Integrante">
-            <h3 id="nome_resultado"></h3>
-            <p id="desc_resultado"></p>
-            <button class="btn-comecar" onclick="window.location.reload()">Refazer Teste</button>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
 
     <script>
-    let faixaEtariaSelecionada = "";
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO ;
+        let faixaEtariaSelecionada = "";
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
 
-      let listaPerguntas = [];
-      let perguntaAtual = 0;
-      let respostasEscolhidas = []; 
-      let indicesEscolhidos = [];
+        let listaPerguntas = [];
+        let perguntaAtual = 0;
+        let respostasEscolhidas = [];
+        let indicesEscolhidos = [];
 
-// Quando clica no botão "Começar Teste" da primeira tela
-function iniciarQuiz() {
-    tela_inicial.style.display = 'none';
-    tela_idade.style.display = 'block'; // Mostra a tela de idade primeiro
-}
-
-// Quando o usuário clica em uma das idades
-function selecionarIdade(elemento, faixa) {
-    // Remove a classe selecionada de todas as opções de idade
-    const itens = document.querySelectorAll('#tela_idade li');
-    itens.forEach(item => item.classList.remove('selecionada'));
-
-    // Adiciona na que foi clicada
-    elemento.classList.add('selecionada');
-    faixaEtariaSelecionada = faixa;
-}
-
-// Quando clica no botão "AVANÇAR" da tela de idade
-function irParaPerguntas() {
-    if (faixaEtariaSelecionada == "") {
-        alert("Selecione sua idade para continuar!");
-        return;
-    }
-
-    tela_idade.style.display = 'none';
-    tela_perguntas.style.display = 'block';
-
-    // AGORA SIM busca as perguntas do banco
-    fetch("/quiz/listar", { method: "GET" })
-    .then(resposta => {
-        resposta.json().then((perguntas) => {
-            listaPerguntas = perguntas;
-            mostrarPergunta();
-        });
-    });
-}
-
-function mostrarPergunta() {
-    const pergunta = listaPerguntas[perguntaAtual];
-    
-    span_numero_pergunta.innerText = `${perguntaAtual + 1}.`;
-    span_texto_pergunta.innerText = pergunta.texto;
-    
-    ul_respostas.innerHTML = ""; 
-
-    pergunta.opcoes.forEach((opcao, index) => {
-        const li = document.createElement("li");
-        li.innerText = opcao.texto;
-        li.dataset.perfil = opcao.perfil; 
-
-        li.onclick = () => selecionar(li, index);
-
-        if(respostasEscolhidas[perguntaAtual] === index) {
-            li.classList.add('selecionada');
+        // Quando clica no botão "Começar Teste" da primeira tela
+        function iniciarQuiz() {
+            tela_inicial.style.display = 'none';
+            tela_idade.style.display = 'block'; // Mostra a tela de idade primeiro
         }
 
-        ul_respostas.appendChild(li);
-    });
+        // Quando o usuário clica em uma das idades
+        function selecionarIdade(elemento, faixa) {
+            // Remove a classe selecionada de todas as opções de idade
+            const itens = document.querySelectorAll('#tela_idade li');
+            itens.forEach(item => item.classList.remove('selecionada'));
 
-    btn_voltar.disabled = (perguntaAtual === 0);
-}
+            // Adiciona na que foi clicada
+            elemento.classList.add('selecionada');
+            faixaEtariaSelecionada = faixa;
+        }
 
-function selecionar(elemento, index) {
-    const itens = document.querySelectorAll('#ul_respostas li');
-    
-    for (let i = 0; i < itens.length; i++) {
-        itens[i].classList.remove('selecionada');
-    }
-    
-    elemento.classList.add('selecionada');
-    respostasEscolhidas[perguntaAtual] = elemento.dataset.perfil;
+        // Quando clica no botão "AVANÇAR" da tela de idade
+        function irParaPerguntas() {
+            if (faixaEtariaSelecionada == "") {
+                alert("Selecione sua idade para continuar!");
+                return;
+            }
 
-    indicesEscolhidos[perguntaAtual] = index;
-}
+            tela_idade.style.display = 'none';
+            tela_perguntas.style.display = 'block';
 
-function proximaPergunta() {
-    if (!respostasEscolhidas[perguntaAtual]) {
-        alert("Escolha uma opção antes de avançar!");
-        return;
-    }
+            // AGORA SIM busca as perguntas do banco
+            fetch("/quiz/listar", { method: "GET" })
+                .then(resposta => {
+                    resposta.json().then((perguntas) => {
+                        listaPerguntas = perguntas;
+                        mostrarPergunta();
+                    });
+                });
+        }
 
-    if (perguntaAtual < listaPerguntas.length - 1) {
-        perguntaAtual++;
-        mostrarPergunta();
-    } else {
-        finalizarQuiz();
-    }
-}
+        function mostrarPergunta() {
+            const pergunta = listaPerguntas[perguntaAtual];
 
-function voltarPergunta() {
-    if (perguntaAtual > 0) {
-        perguntaAtual--;
-        mostrarPergunta();
-    }
-}
+            span_numero_pergunta.innerText = `${perguntaAtual + 1}.`;
+            span_texto_pergunta.innerText = pergunta.texto;
 
-function finalizarQuiz() {
-        console.log("ID do Usuário no sessionStorage:", sessionStorage.ID_USUARIO);
-        let pontosLiam = 0;
-        let pontosNoel = 0;
+            ul_respostas.innerHTML = "";
 
-        for (let i = 0; i < respostasEscolhidas.length; i++) {
-            if (respostasEscolhidas[i] === 'Liam') {
-                pontosLiam++;
-            } else if (respostasEscolhidas[i] === 'Noel') {
-                pontosNoel++;
+            pergunta.opcoes.forEach((opcao, index) => {
+                const li = document.createElement("li");
+                li.innerText = opcao.texto;
+                li.dataset.perfil = opcao.perfil;
+
+                li.onclick = () => selecionar(li, index);
+
+                if (respostasEscolhidas[perguntaAtual] === index) {
+                    li.classList.add('selecionada');
+                }
+
+                ul_respostas.appendChild(li);
+            });
+
+            btn_voltar.disabled = (perguntaAtual === 0);
+        }
+
+        function selecionar(elemento, index) {
+            const itens = document.querySelectorAll('#ul_respostas li');
+
+            for (let i = 0; i < itens.length; i++) {
+                itens[i].classList.remove('selecionada');
+            }
+
+            elemento.classList.add('selecionada');
+            respostasEscolhidas[perguntaAtual] = elemento.dataset.perfil;
+
+            indicesEscolhidos[perguntaAtual] = index;
+        }
+
+        function proximaPergunta() {
+            if (!respostasEscolhidas[perguntaAtual]) {
+                alert("Escolha uma opção antes de avançar!");
+                return;
+            }
+
+            if (perguntaAtual < listaPerguntas.length - 1) {
+                perguntaAtual++;
+                mostrarPergunta();
+            } else {
+                finalizarQuiz();
             }
         }
 
-        let resultadoFinal = "Neutro";
-        if (pontosLiam > pontosNoel) {
-            resultadoFinal = "Liam";
-        } else if (pontosNoel > pontosLiam) {
-            resultadoFinal = "Noel";
-        } else if (pontosLiam === pontosNoel && pontosLiam > 0) {
-            resultadoFinal = "Liam"; 
+        function voltarPergunta() {
+            if (perguntaAtual > 0) {
+                perguntaAtual--;
+                mostrarPergunta();
+            }
         }
 
-        var idUsuario = sessionStorage.ID_USUARIO; 
+        function finalizarQuiz() {
+            console.log("ID do Usuário no sessionStorage:", sessionStorage.ID_USUARIO);
+            let pontosLiam = 0;
+            let pontosNoel = 0;
 
-        fetch("/quiz/salvar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idUsuarioServer: idUsuario,
-                resultadoFinalServer: resultadoFinal,
-                faixaEtariaServer: faixaEtariaSelecionada
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                tela_perguntas.style.display = 'none';
-                
-                tela_resultado.style.display = 'block';
-                
-                if (resultadoFinal === "Liam") {
-                    img_resultado.src = "./assets/img/liam2.jpg"; 
-                    nome_resultado.innerText = "Liam Gallagher";
-                    desc_resultado.innerText = "Você é o frontman absoluto! Possui uma presença inigualável, muita atitude e age de forma totalmente impulsiva e autêntica. Não se importa com as opiniões alheias e vive intensamente.";
-                } else {
-                    img_resultado.src = "./assets/img/noel2.jpg"; 
-                    nome_resultado.innerText = "Noel Gallagher";
-                    desc_resultado.innerText = "Você é o cérebro por trás da música! Prefere o planejamento, valoriza o controle da situação, tem um sarcasmo afiado e é focado no profissionalismo. Expressa sua genialidade através da lógica e da técnica.";
+            for (let i = 0; i < respostasEscolhidas.length; i++) {
+                if (respostasEscolhidas[i] === 'Liam') {
+                    pontosLiam++;
+                } else if (respostasEscolhidas[i] === 'Noel') {
+                    pontosNoel++;
                 }
             }
-        }).catch(function (erro) {
-            console.log("Erro ao salvar resultado: ", erro);
-        });
-    }
+
+            let resultadoFinal = "Neutro";
+            if (pontosLiam > pontosNoel) {
+                resultadoFinal = "Liam";
+            } else if (pontosNoel > pontosLiam) {
+                resultadoFinal = "Noel";
+            } else if (pontosLiam === pontosNoel && pontosLiam > 0) {
+                resultadoFinal = "Liam";
+            }
+
+            var idUsuario = sessionStorage.ID_USUARIO;
+
+            fetch("/quiz/salvar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idUsuarioServer: idUsuario,
+                    resultadoFinalServer: resultadoFinal,
+                    faixaEtariaServer: faixaEtariaSelecionada
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    tela_perguntas.style.display = 'none';
+
+                    tela_resultado.style.display = 'block';
+
+                    if (resultadoFinal === "Liam") {
+                        img_resultado.src = "./assets/img/liam2.jpg";
+                        nome_resultado.innerText = "Liam Gallagher";
+                        desc_resultado.innerText = "Você é o frontman absoluto! Possui uma presença inigualável, muita atitude e age de forma totalmente impulsiva e autêntica. Não se importa com as opiniões alheias e vive intensamente.";
+                    } else {
+                        img_resultado.src = "./assets/img/noel2.jpg";
+                        nome_resultado.innerText = "Noel Gallagher";
+                        desc_resultado.innerText = "Você é o cérebro por trás da música! Prefere o planejamento, valoriza o controle da situação, tem um sarcasmo afiado e é focado no profissionalismo. Expressa sua genialidade através da lógica e da técnica.";
+                    }
+                }
+            }).catch(function (erro) {
+                console.log("Erro ao salvar resultado: ", erro);
+            });
+        }
     </script>
 </body>
