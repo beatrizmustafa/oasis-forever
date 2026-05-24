@@ -63,10 +63,21 @@ function buscarRespostasPeriodo() {
     return database.executar(instrucaoSql);
 }
 
+function buscarRespostasPorIdade() {
+    var instrucaoSql = `
+        SELECT faixa_etaria, COUNT(id) as quantidade
+        FROM resultado_quiz
+        GROUP BY faixa_etaria;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     contarRespostas,
     resultadoPredominante,
     buscarDadosQuestionario,
     buscarRespostasPorDia,
-    buscarRespostasPeriodo
+    buscarRespostasPeriodo,
+    buscarRespostasPorIdade
 };

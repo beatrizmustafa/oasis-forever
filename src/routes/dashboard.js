@@ -25,4 +25,8 @@ router.get("/respostasPeriodo", function (req, res) {
     dashboardController.buscarRespostasPeriodo(req, res);
 });
 
+router.get("/respostasPorIdade", function (req, res) {
+    dashboardController.buscarRespostasPorIdade(req, res);
+});
+
 module.exports = router;

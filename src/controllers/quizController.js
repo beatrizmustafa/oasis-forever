@@ -40,13 +40,14 @@ function listarPerguntas(req, res) {
 function salvarResultado(req, res) {
     var idUsuario = req.body.idUsuarioServer;
     var resultadoFinal = req.body.resultadoFinalServer;
+    var faixaEtaria = req.body.faixaEtariaServer;
 
     if (idUsuario == undefined) {
         res.status(400).send("Seu idUsuario está undefined!");
     } else if (resultadoFinal == undefined) {
         res.status(400).send("Seu resultadoFinal está undefined!");
     } else {
-        quizModel.salvarResultado(idUsuario, resultadoFinal)
+        quizModel.salvarResultado(idUsuario, resultadoFinal, faixaEtaria)
             .then(function (resultado) {
                 res.json(resultado);
             })

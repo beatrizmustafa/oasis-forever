@@ -15,10 +15,10 @@ function listarPerguntas() {
     return database.executar(instrucao);
 }
 
-function salvarResultado(idUsuario, resultadoFinal) {
+function salvarResultado(idUsuario, resultadoFinal, faixaEtaria) {
     var instrucao = `
-        INSERT INTO resultado_quiz (fk_usuario, perfil_final) 
-        VALUES (${idUsuario}, '${resultadoFinal}');
+        INSERT INTO resultado_quiz (fk_usuario, perfil_final, faixa_etaria) 
+        VALUES (${idUsuario}, '${resultadoFinal}', '${faixaEtaria}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

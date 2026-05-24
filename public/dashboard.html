@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="buscarTotalRespostas(); buscarPredominante(); buscarDadosQuestionario(); ; buscarRespostasPorDia(); buscarRespostasPeriodo()">
+<body onload="buscarTotalRespostas(); buscarPredominante(); buscarDadosQuestionario(); buscarRespostasPorDia(); buscarRespostasPeriodo(); buscarRespostasPorIdade()">
 
   <div class="dashboard-wrapper">
     <header class="header-banner">
@@ -233,6 +233,44 @@
             console.log("Erro ao buscar dados de período: ", erro);
         });
     }
+
+    function buscarRespostasPorIdade() {
+        fetch("/dashboard/respostasPorIdade", {
+            method: "GET",
+        })
+        .then(function (resposta) {
+            resposta.json().then((json) => {
+                console.log("Dados recebidos para idades: ", json);
+                
+                // A ordem oficial das labels do seu gráfico4 é:
+                // ['41 - 55', '55 +', '26 - 40', '19 - 25', '13 - 18']
+                let idadesQuantidades = [0, 0, 0, 0, 0];
+
+                for (let i = 0; i < json.length; i++) {
+                    let registro = json[i];
+
+                    if (registro.faixa_etaria === '41 - 55') {
+                        idadesQuantidades[0] = registro.quantidade;
+                    } else if (registro.faixa_etaria === '55 +') {
+                        idadesQuantidades[1] = registro.quantidade;
+                    } else if (registro.faixa_etaria === '26 - 40') {
+                        idadesQuantidades[2] = registro.quantidade;
+                    } else if (registro.faixa_etaria === '19 - 25') {
+                        idadesQuantidades[3] = registro.quantidade;
+                    } else if (registro.faixa_etaria === '13 - 18') {
+                        idadesQuantidades[4] = registro.quantidade;
+                    }
+                }
+
+                // Atualiza o gráfico de idades com os valores reais
+                graficopizza2.data.datasets[0].data = idadesQuantidades;
+                graficopizza2.update();
+            });
+        })
+        .catch(function (erro) {
+            console.log("Erro ao buscar dados de idades: ", erro);
+        });
+    }
     
 
 
@@ -324,15 +362,17 @@
         '55 +',
         '26 - 40',
         '19 - 25',
-        '13', '18'
+        '13 - 18'
       ],
       datasets: [{
-        label: 'My First Dataset',
-        data: [300, 50, 100, 25, 170, 67],
+        label: 'Quantidade',
+        data: [300, 50, 100, 25, 170],
         backgroundColor: [
-          'rgb(255, 99, 132)',
+         'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)'
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',   // Adicionei umas cores extras
+          'rgb(153, 102, 255)'   // para a pizza ficar co
         ],
         hoverOffset: 4
       }]
@@ -371,9 +411,9 @@
     
     // Gráfico de pizza salvo na variável correta para o fetch atualizar
     let graficopizza1 = new Chart(document.getElementById('graficopizza'), configPizza);
-    
+
+let graficopizza2 = new Chart(document.getElementById('graficopizza2'), configPizza2);    
     // Gráfico de idades trazido de volta para a tela
-    new Chart(document.getElementById('graficopizza2'), configPizza2);
   </script>
 </body>
 
