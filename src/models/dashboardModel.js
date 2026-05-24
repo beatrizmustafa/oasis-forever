@@ -33,8 +33,40 @@ function buscarDadosQuestionario() {
     return database.executar(instrucaoSql);
 }
 
+function buscarRespostasPorDia() {
+    var instrucaoSql = `
+        SELECT 
+            perfil_final,
+            WEEKDAY(data_realizacao) as dia_semana,
+            COUNT(id) as quantidade
+        FROM resultado_quiz
+        GROUP BY perfil_final, dia_semana;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarRespostasPeriodo() {
+    var instrucaoSql = `
+        SELECT 
+            perfil_final,
+            CASE 
+                WHEN HOUR(data_realizacao) >= 6 AND HOUR(data_realizacao) < 12 THEN 'Manha'
+                WHEN HOUR(data_realizacao) >= 12 AND HOUR(data_realizacao) < 18 THEN 'Tarde'
+                ELSE 'Noite'
+            END as periodo,
+            COUNT(id) as quantidade
+        FROM resultado_quiz
+        GROUP BY perfil_final, periodo;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     contarRespostas,
     resultadoPredominante,
-    buscarDadosQuestionario
+    buscarDadosQuestionario,
+    buscarRespostasPorDia,
+    buscarRespostasPeriodo
 };

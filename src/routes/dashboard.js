@@ -17,4 +17,12 @@ router.get("/dadosQuestionario", function (req, res) {
     dashboardController.buscarDadosQuestionario(req, res);
 });
 
+router.get("/respostasPorDia", function (req, res) {
+    dashboardController.buscarRespostasPorDia(req, res);
+});
+
+router.get("/respostasPeriodo", function (req, res) {
+    dashboardController.buscarRespostasPeriodo(req, res);
+});
+
 module.exports = router;

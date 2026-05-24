@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="buscarTotalRespostas(); buscarPredominante(); buscarDadosQuestionario()">
+<body onload="buscarTotalRespostas(); buscarPredominante(); buscarDadosQuestionario(); ; buscarRespostasPorDia(); buscarRespostasPeriodo()">
 
   <div class="dashboard-wrapper">
     <header class="header-banner">
@@ -154,6 +154,87 @@
         });
     }
 
+    function buscarRespostasPorDia() {
+        fetch("/dashboard/respostasPorDia", {
+            method: "GET",
+        })
+        .then(function (resposta) {
+            resposta.json().then((json) => {
+                console.log("Dados recebidos para dias da semana: ", json);
+                
+                // Array com 7 posições (de 0 a 6, representando de Segunda a Domingo)
+                let liamDias = [0, 0, 0, 0, 0, 0, 0];
+                let noelDias = [0, 0, 0, 0, 0, 0, 0];
+
+                for (let i = 0; i < json.length; i++) {
+                    let registro = json[i];
+                    
+                    // O banco de dados retorna 0 para Segunda, 1 para Terça...
+                    // Isso é perfeito porque é exatamente a posição do nosso array!
+                    let dia = registro.dia_semana;
+
+                    if (registro.perfil_final === 'Liam') {
+                        liamDias[dia] = registro.quantidade;
+                    } else if (registro.perfil_final === 'Noel') {
+                        noelDias[dia] = registro.quantidade;
+                    }
+                }
+
+                // Injeta os dados no gráfico de linhas
+                graficolinha1.data.datasets[0].data = liamDias; // Liam é o dataset 0
+                graficolinha1.data.datasets[1].data = noelDias; // Noel é o dataset 1
+                
+                graficolinha1.update();
+            });
+        })
+        .catch(function (erro) {
+            console.log("Erro ao buscar dados de dias da semana: ", erro);
+        });
+    }
+
+    function buscarRespostasPeriodo() {
+        fetch("/dashboard/respostasPeriodo", {
+            method: "GET",
+        })
+        .then(function (resposta) {
+            resposta.json().then((json) => {
+                console.log("Dados recebidos para período do dia: ", json);
+                
+                let liamPeriodo = [0, 0, 0];
+                let noelPeriodo = [0, 0, 0];
+
+                for (let i = 0; i < json.length; i++) {
+                    let registro = json[i];
+                    let posicaoArray = 0;
+
+                    if (registro.periodo === 'Manha') {
+                        posicaoArray = 0;
+                    } else if (registro.periodo === 'Tarde') {
+                        posicaoArray = 1;
+                    } else if (registro.periodo === 'Noite') {
+                        posicaoArray = 2;
+                    }
+
+                    if (registro.perfil_final === 'Liam') {
+                        liamPeriodo[posicaoArray] = registro.quantidade;
+                    } else if (registro.perfil_final === 'Noel') {
+                        noelPeriodo[posicaoArray] = registro.quantidade;
+                    }
+                }
+
+                // Injeta os arrays preenchidos dentro do gráfico correto (graficobarra1)
+                graficobarra1.data.datasets[0].data = liamPeriodo; 
+                graficobarra1.data.datasets[1].data = noelPeriodo; 
+                
+                graficobarra1.update();
+            });
+        })
+        .catch(function (erro) {
+            console.log("Erro ao buscar dados de período: ", erro);
+        });
+    }
+    
+
 
     const labelsDias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
     const labelsMeses = ['Manhã', 'Tarde', 'Noite'];
@@ -226,7 +307,7 @@
         'Noel'
       ],
       datasets: [{
-        label: 'My First Dataset',
+        label: 'Quantidade',
         data: [70, 30],
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -284,11 +365,15 @@
 
     };
 
-    new Chart(document.getElementById('graficolinha'), configLinha);
-    new Chart(document.getElementById('graficobarra'), configBarra);
+    let graficolinha1 = new Chart(document.getElementById('graficolinha'), configLinha);    
+    // Gráfico de barras salvo na variável correta para o fetch atualizar
+    let graficobarra1 = new Chart(document.getElementById('graficobarra'), configBarra);
+    
+    // Gráfico de pizza salvo na variável correta para o fetch atualizar
     let graficopizza1 = new Chart(document.getElementById('graficopizza'), configPizza);
+    
+    // Gráfico de idades trazido de volta para a tela
     new Chart(document.getElementById('graficopizza2'), configPizza2);
-
   </script>
 </body>
 
