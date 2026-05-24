@@ -43,13 +43,12 @@
         </div>
         <div class="gender-stats">
           <div class="gender-row">
-            <span>Mulheres</span>
-            <span class="perc">--%</span>
-          </div>
+            <span>Team Noel</span>
+<span class="perc" id="perc_noel">--%</span>          
+</div>
           <div class="gender-row">
-            <span>Homens</span>
-            <span class="perc">--%</span>
-          </div>
+            <span>Team Liam</span>
+<span class="perc" id="perc_liam">--%</span>          </div>
         </div>
       </div>
     </header>
@@ -99,7 +98,6 @@
           resposta.json().then((json) => {
             console.log("Dados recebidos: ", json);
 
-            // Pega o elemento pelo ID e joga o número lá dentro
             document.getElementById("total_respostas").innerHTML = json.totalRespostas;
           });
         })
@@ -116,7 +114,6 @@
           resposta.json().then((json) => {
             console.log("Predominante recebido: ", json);
 
-            // Pega o elemento pelo ID e joga o nome (perfil_final) lá dentro
             document.getElementById("resultado_predominante").innerHTML = json.perfil_final;
           });
         })
@@ -144,7 +141,15 @@
               }
             }
 
-            // Injeta os dados novos dentro do gráfico
+            let totalCofre = pontosLiam + pontosNoel;
+        if (totalCofre > 0) {
+          let porcLiam = ((pontosLiam / totalCofre) * 100).toFixed(0);
+          let porcNoel = ((pontosNoel / totalCofre) * 100).toFixed(0);
+
+          document.getElementById("perc_liam").innerHTML = `${porcLiam}%`;
+          document.getElementById("perc_noel").innerHTML = `${porcNoel}%`;
+        }
+
             graficopizza1.data.datasets[0].data = [pontosLiam, pontosNoel];
             graficopizza1.update();
           });
@@ -162,15 +167,13 @@
             resposta.json().then((json) => {
                 console.log("Dados recebidos para dias da semana: ", json);
                 
-                // Array com 7 posições (de 0 a 6, representando de Segunda a Domingo)
                 let liamDias = [0, 0, 0, 0, 0, 0, 0];
                 let noelDias = [0, 0, 0, 0, 0, 0, 0];
 
                 for (let i = 0; i < json.length; i++) {
                     let registro = json[i];
                     
-                    // O banco de dados retorna 0 para Segunda, 1 para Terça...
-                    // Isso é perfeito porque é exatamente a posição do nosso array!
+          
                     let dia = registro.dia_semana;
 
                     if (registro.perfil_final === 'Liam') {
@@ -180,9 +183,8 @@
                     }
                 }
 
-                // Injeta os dados no gráfico de linhas
-                graficolinha1.data.datasets[0].data = liamDias; // Liam é o dataset 0
-                graficolinha1.data.datasets[1].data = noelDias; // Noel é o dataset 1
+                graficolinha1.data.datasets[0].data = liamDias; 
+                graficolinha1.data.datasets[1].data = noelDias; 
                 
                 graficolinha1.update();
             });
@@ -222,7 +224,6 @@
                     }
                 }
 
-                // Injeta os arrays preenchidos dentro do gráfico correto (graficobarra1)
                 graficobarra1.data.datasets[0].data = liamPeriodo; 
                 graficobarra1.data.datasets[1].data = noelPeriodo; 
                 
@@ -242,8 +243,7 @@
             resposta.json().then((json) => {
                 console.log("Dados recebidos para idades: ", json);
                 
-                // A ordem oficial das labels do seu gráfico4 é:
-                // ['41 - 55', '55 +', '26 - 40', '19 - 25', '13 - 18']
+
                 let idadesQuantidades = [0, 0, 0, 0, 0];
 
                 for (let i = 0; i < json.length; i++) {
@@ -262,7 +262,6 @@
                     }
                 }
 
-                // Atualiza o gráfico de idades com os valores reais
                 graficopizza2.data.datasets[0].data = idadesQuantidades;
                 graficopizza2.update();
             });
@@ -288,12 +287,12 @@
       scales: {
         x: {
           grid: {
-            display: false // Remove as linhas verticais
+            display: false 
           }
         },
         y: {
           grid: {
-            display: false // Remove as linhas horizontais
+            display: false 
           }
         }
       }
@@ -371,8 +370,8 @@
          'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
           'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',   // Adicionei umas cores extras
-          'rgb(153, 102, 255)'   // para a pizza ficar co
+          'rgb(75, 192, 192)',   
+          'rgb(153, 102, 255)'  
         ],
         hoverOffset: 4
       }]
@@ -406,14 +405,9 @@
     };
 
     let graficolinha1 = new Chart(document.getElementById('graficolinha'), configLinha);    
-    // Gráfico de barras salvo na variável correta para o fetch atualizar
     let graficobarra1 = new Chart(document.getElementById('graficobarra'), configBarra);
-    
-    // Gráfico de pizza salvo na variável correta para o fetch atualizar
     let graficopizza1 = new Chart(document.getElementById('graficopizza'), configPizza);
-
-let graficopizza2 = new Chart(document.getElementById('graficopizza2'), configPizza2);    
-    // Gráfico de idades trazido de volta para a tela
+    let graficopizza2 = new Chart(document.getElementById('graficopizza2'), configPizza2);    
   </script>
 </body>
 

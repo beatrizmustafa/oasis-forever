@@ -5,7 +5,6 @@ function listarPerguntas(req, res) {
     quizModel.listarPerguntas()
         .then(function (resultado) {
             if (resultado.length > 0) {
-                // Lógica para agrupar as opções dentro das perguntas
                 let perguntasAgrupadas = [];
                 let perguntaAtual = null;
 
@@ -24,7 +23,7 @@ function listarPerguntas(req, res) {
                         perfil: linha.perfil_relacionado
                     });
                 });
-                if (perguntaAtual) perguntasAgrupadas.push(perguntaAtual); // push da última pergunta
+                if (perguntaAtual) perguntasAgrupadas.push(perguntaAtual); 
 
                 res.status(200).json(perguntasAgrupadas);
             } else {

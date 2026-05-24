@@ -107,11 +107,10 @@
                     resposta.text().then(texto => {
                         console.error(texto);
 
-                        cardErro.style.color = "red"; // Garante que a letra fique vermelha
-                        cardErro.style.display = "block"; // Mostra a div de erro
-                        mensagem_erro.innerHTML = "Username ou senha incorretos!"; // Insere a mensagem
+                        cardErro.style.color = "red"; 
+                        cardErro.style.display = "block"; 
+                        mensagem_erro.innerHTML = "Username ou senha incorretos!"; 
                         
-                        // Faz a mensagem sumir depois de 5 segundos
                         setTimeout(sumirMensagem, 5000);
                     });
                 }
