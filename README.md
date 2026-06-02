@@ -11,6 +11,14 @@ O **Oasis Forever** é uma aplicação web desenvolvida para atuar como um acerv
 * JavaScript (Node.js)
 ---
 
+## Modelagem do Banco de Dados
+
+Abaixo está o Diagrama de Entidade-Relacionamento (DER) que estrutura o banco de dados do Oasis Forever:
+
+![Diagrama do Banco de Dados](./docs/diagrama_banco.png)
+
+---
+
 ## Como rodar o projeto
 
 Siga os passos abaixo para executar o projeto na sua máquina:
@@ -57,7 +65,8 @@ npm run dev
 
 ```bash
 oasis-forever/
-│
+├── docs/
+│   └── diagrama_banco.png
 ├── public/
 │   ├── assets/
 │   ├── css/
