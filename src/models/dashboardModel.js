@@ -15,7 +15,8 @@ function resultadoPredominante() {
         SELECT perfil_final, COUNT(perfil_final) as quantidade
         FROM resultado_quiz
         GROUP BY perfil_final
-        ORDER BY quantidade DESC
+        ORDER BY quantidade DESC'
+        
         LIMIT 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
