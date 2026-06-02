@@ -15,7 +15,7 @@ O **Oasis Forever** é uma aplicação web desenvolvida para atuar como um acerv
 
 Abaixo está o Diagrama de Entidade-Relacionamento (DER) que estrutura o banco de dados do Oasis Forever:
 
-![Diagrama do Banco de Dados](./docs/diagrama_banco.png)
+![Diagrama do Banco de Dados](./docs/Modelagem.png)
 
 ---
 
